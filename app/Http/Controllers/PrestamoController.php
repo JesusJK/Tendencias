@@ -24,21 +24,22 @@ class PrestamoController extends Controller
         return view('prestamos.create', compact('personas', 'materiales'));
     }
 
-    
+
     public function store(Request $request)
     {
-        $request->validate([
-            'persona_id' => 'required|exists:personas,id',
-            'material_id' => 'required|exists:materials,id',
-            'fecha_prestamo' => 'required|date',
-        ]);
+        try {
+            $prestamo->fecha_prestamo=$request->fecha_prestamo;
+            $prestamo->estado=$request->estado;
 
-        Prestamo::create($request->all());
+        } catch () {
+            //throw $th;
+        }
 
-        return redirect()->route('prestamos.index')->with('success', 'Prestamo registrado con exito');
     }
 
     
+
+
     public function show(string $id)
     {
         $prestamo = Prestamo::with('persona', 'material')->findOrFail($id);
@@ -46,6 +47,8 @@ class PrestamoController extends Controller
     }
 
     
+
+
     public function edit(string $id)
     {
         $prestamo = Prestamo::findOrFail($id);
@@ -54,9 +57,10 @@ class PrestamoController extends Controller
         return view('prestamos.edit', compact('prestamo', 'personas', 'materiales'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
+
+
+
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -71,6 +75,8 @@ class PrestamoController extends Controller
         return redirect()->route('prestamos.index')->with('success', 'Prestamo actualizado con exito');
     }
 
+
+
     public function destroy(string $id)
     {
         $prestamo = Prestamo::findOrFail($id);
@@ -78,6 +84,8 @@ class PrestamoController extends Controller
 
         return redirect()->route('prestamos.index')->with('success', 'Prestamo eliminado con exito');
     }
+
+
 
     public function cambioEstadoPrestamos(Request $request)
 {

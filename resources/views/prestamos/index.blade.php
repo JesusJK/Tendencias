@@ -1,12 +1,11 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="content-wrapper">
     <!-- Encabezado -->
     <section class="content-header">
         <div class="container-fluid">
-            <!-- Puedes agregar algún mensaje o título aquí -->
         </div>
+        @include('layouts.partial.msg')
     </section>
 
     <!-- Contenido Principal -->
@@ -18,9 +17,7 @@
                         <!-- Encabezado de la Tarjeta -->
                         <div class="card-header bg-secondary" style="font-size: 1.75rem; font-weight: 500; line-height: 1.2; margin-bottom: 0.5rem;">
                             @yield('title')
-
-                            <!-- Botón para Registrar Nuevo Préstamo -->
-                            <a href="{{ route('prestamos.create') }}" class="btn btn-primary float-right" title="Nuevo Préstamo">
+                            <a href="{{ route('prestamos.create') }}" method="POST" class="btn btn-primary float-right" title="Nuevo Préstamo">
                                 <i class="fas fa-plus nav-icon"></i> Nuevo
                             </a>
                         </div>
