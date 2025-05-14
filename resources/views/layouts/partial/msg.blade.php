@@ -7,17 +7,14 @@
     </span>
   </div>
   @endforeach
-  @endif
 
 @if(session('successMsg'))
   <div class="alert alert-success">
     <button type="button" aria-hidden="true" class="close" onclick="this.parentElement.style.display">
       <span>
-        <b></b>
+
       </span>
     </button>
   </div>
-@endif
-
 
 

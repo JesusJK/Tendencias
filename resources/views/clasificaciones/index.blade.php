@@ -22,18 +22,18 @@
                                     <tr>
                                         <th class="w-3 ">id</th>
                                         <th>nombre</th>
-                                        <th>numeroDocumento</th>
-                                        <th>telefono</th>
-                                             
+                                        <th>descripcion</th>
+                                        <th>estado</th>
+                                        <th>Acccion</th>       
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($personas as $persona)
+                                    @foreach ($clasificaciones as $clasificacion)
                                     <tr>
-                                        <td>{{$persona->id}}</td>
-                                        <td>{{$persona->nombre}}</td>
-                                        <td>{{$persona->N_documento}}</td>
-                                        <td>{{$persona->telefono}}</td>
+                                        <td>{{$clasificacion->id}}</td>
+                                        <td>{{$clasificacion->nombre}}</td>
+                                        <td>{{$clasificacion->descripcion}}</td>
+                                        <td>{{$clasificacion->estado}}</td>
                                         <td></td>
                                     </tr>
                                     @endforeach

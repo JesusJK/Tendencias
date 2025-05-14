@@ -39,15 +39,13 @@ class DatabaseSeeder extends Seeder
             'bibliografia' =>'bibliografia prueba',
           ]);**/
          
-        // Categoria::factory(10)->create();
+         // Categoria::factory(10)->create();
          
         // Estante::factory(10)->create();
         
         // Material::factory(10)->create();
 
         // MaterialAutor::factory(10)->create();
-
-        
         
     }
 }

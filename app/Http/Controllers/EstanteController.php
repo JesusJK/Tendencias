@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Clasificacion;
+use App\Models\Estante;
 
-class ClasificacionController extends Controller
+
+class EstanteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,8 +14,8 @@ class ClasificacionController extends Controller
     public function index()
     {
         //
-        $clasificaciones = Clasificacion::all();
-        return view('clasificaciones.index', compact('clasificaciones'));
+        $estantes = Estante::all();
+        return view('estantes.index', compact('estantes'));
     }
 
     /**

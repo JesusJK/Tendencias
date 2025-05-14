@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Persona;
+use App\Models\MaterialAutor;
 
-class PersonaController extends Controller
+class MaterialAutorController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //
-        $personas = Persona::all();
-        return view('personas.index', compact('personas'));
+        $materialAutores = MaterialAutor::all();
+        return view('materialAutores.index', compact('materialAutores'));
     }
 
     /**

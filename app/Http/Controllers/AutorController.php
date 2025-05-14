@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\TipoDocumento;
+use App\Models\Autor;
 
-class TipoDocumentoController extends Controller
+class AutorController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function index()
     {
         //
-        $tipodocumento = TipoDocumento::all();
-        return view('tipodocumentos.index', compact('tipodocumentos'));
+        $autores = Autor::all();
+        return view('autores.index', compact('autores'));
     }
 
     /**

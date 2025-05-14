@@ -33,9 +33,9 @@ class Material extends Model
   {
     return $this ->belonsTo(Estante::class);
   }
-  public function materialAutor()
+  public function materialAutores()
   {
-    return $this ->hasMany(MaterialAutor::class, 'materialAutor_id');
+    return $this ->hasMany(MaterialAutor::class, 'material_id');
   }
   
   
