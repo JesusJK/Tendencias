@@ -18,7 +18,7 @@ class TipoDocumento extends Model
 
     public function personas()
     {
-        return $this->hasMany(Persona::class, 'tipo_documento_id');
+        return $this->hasMany(Persona::class);
     }
 }
 

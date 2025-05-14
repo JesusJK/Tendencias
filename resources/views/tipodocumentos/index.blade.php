@@ -13,7 +13,9 @@
 						<div class="card-header bg-secondary" style="font-size: 1.75rem;font-weight: 500; line-height: 1.2; margin-bottom: 0.5rem;">
 							@yield('title')
 						
-								<a href="#" class="btn btn-primary float-right" title="Nuevo"><i class="fas fa-plus nav-icon"></i></a>
+                            <a href="{{ route('tipodocumentos.create') }}" class="btn btn-primary float-right" title="Nuevo Tipo de documento">
+                                    <i class="fas fa-plus nav-icon"></i> Nuevo
+                            </a>
 							
 	                    </div>
                         <div class="card-bod">
@@ -22,9 +24,7 @@
                                     <tr>
                                         <th class="w-3 ">id</th>
                                         <th>nombre</th>
-                                        <th>descripcion</th>
-                                        <th>estado</th>
-                                        <th>Acccion</th>       
+                                        <th>abreviatura</th>     
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -33,7 +33,15 @@
                                         <td>{{$tipodocumento->id}}</td>
                                         <td>{{$tipodocumento->nombre}}</td>
                                         <td>{{$tipodocumento->abreviatura}}</td>
-                                        <td></td>
+                                        <td>
+                                            <form action="{{ route('tipodocumentos.destroy', $tipodocumento->id) }}" method="POST" style="display: inline-block;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este tipo de documento?')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>                                       
                                     </tr>
                                     @endforeach
                                 </tbody>

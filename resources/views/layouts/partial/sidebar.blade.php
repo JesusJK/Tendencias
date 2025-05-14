@@ -39,10 +39,10 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{ route ('prestamos.index') }}" class="nav-link">
+            <a href="{{ route ('tipodocumentos.index') }}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Prestamos
+                Tipo de documento 
               </p>
             </a>
           </li>
@@ -54,6 +54,15 @@
               </p>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{ route ('prestamos.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Prestamos
+              </p>
+            </a>
+          </li>
+          
           
         </ul>
                 

@@ -6,13 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Prestamo;
 use App\Models\Persona;
 use App\Models\Material;
+use Carbon\Carbon;
 
 class PrestamoController extends Controller
 {
     
     public function index()
     {
-        $prestamos = Prestamo::with('persona', 'material')->get(); 
+        $prestamos = Prestamo::with('persona')->get();
         return view('prestamos.index', compact('prestamos'));
     }
 
@@ -20,8 +21,7 @@ class PrestamoController extends Controller
     public function create()
     {
         $personas = Persona::all();
-        $materiales = Material::all();
-        return view('prestamos.create', compact('personas', 'materiales'));
+        return view('prestamos.create', compact('personas'));
     }
 
 
@@ -29,37 +29,52 @@ class PrestamoController extends Controller
     {
         $request->validate([
             'persona_id' => 'required|exists:personas,id',
-            'material_id' => 'required|exists:materials,id',
             'fecha_prestamo' => 'required|date',
+            'material' => 'required|string|max:255',
+        ]);
+        $fechaDevolucion = Carbon::parse($request->fecha_prestamo)->addDays(7);
+        Prestamo::create([
+            'fecha_prestamo' => $request->fecha_prestamo,
+            'fecha_devolucion' => $fechaDevolucion,
+            'estado' => $request->estado,
+            'persona_id' => $request->persona_id,
+            'material' => $request->material,
+            'fecha_entrega' => $request->fecha_entrega,
+            'dias_retraso' => 0,
+            'registradopor' => auth()->id(),
         ]);
 
-        Prestamo::create($request->all());
-
-        return redirect()->route('prestamos.index')->with('success', 'Préstamo registrado con éxito');
+        return redirect()->route('prestamos.index')->with('success', 'Préstamo creado con éxito');
     }
+
+    
 
 
     public function show(string $id)
     {
-        $prestamo = Prestamo::with('persona', 'material')->findOrFail($id);
+        $prestamo = Prestamo::with('persona')->findOrFail($id);
         return view('prestamos.show', compact('prestamo'));
     }
+
     
+
 
     public function edit(string $id)
     {
         $prestamo = Prestamo::findOrFail($id);
         $personas = Persona::all();
-        $materiales = Material::all();
-        return view('prestamos.edit', compact('prestamo', 'personas', 'materiales'));
+        return view('prestamos.edit', compact('prestamo', 'personas'));
     }
+
+    
+
 
 
     public function update(Request $request, string $id)
     {
         $request->validate([
             'persona_id' => 'required|exists:personas,id',
-            'material_id' => 'required|exists:materials,id',
+            'material' => 'required|string|max:255',
             'fecha_prestamo' => 'required|date',
         ]);
 

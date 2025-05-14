@@ -14,15 +14,16 @@ return new class extends Migration
         Schema::create('personas', function (Blueprint $table) {
             $table->id();
             $table->string('nombre');
-            $table->string('N_documento');
+            $table->unsignedBigInteger('tipo_documento_id');
+            $table->foreign('tipo_documento_id')->references('id')->on('tipo_documento');
+            $table->string('n_documento');
             $table->string('correo');
             $table->string('telefono');
-            $table->unsignedBigInteger('tipoDocumento_id');
+            
 
             $table->timestamps();
 
-            $table->foreign('tipoDocumento_id')
-            ->references('id')->on('tipo_documento');
+            
         });
     }
 

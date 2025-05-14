@@ -40,7 +40,7 @@
                                         <tr>
                                             <td>{{ $prestamo->id }}</td>
                                             <td>{{ $prestamo->persona->nombre ?? 'Sin Asignar' }}</td>
-                                            <td>{{ $prestamo->material->titulo ?? 'Sin Material' }}</td>
+                                            <td>{{ $prestamo->material }}</td>
                                             <td>{{ $prestamo->fecha_prestamo }}</td>
                                             <td>{{ $prestamo->fecha_devolucion ?? 'Pendiente' }}</td>
                                             <td>{{ ucfirst($prestamo->estado) }}</td>
@@ -62,7 +62,7 @@
                                                     <button type="submit" class="btn btn-danger btn-sm" title="Eliminar" onclick="return confirm('¿Estás seguro de eliminar este préstamo?')">
                                                         <i class="fas fa-trash"></i>
                                                     </button>
-                                                </form>
+                                            </form>
                                             </td>
                                         </tr>
                                     @endforeach

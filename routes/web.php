@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\PrestamoController;
+use App\Http\Controllers\TipoDocumentoController;
 
 
 Route::get('/', function () {
@@ -31,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('prestamos', PrestamoController::class);
     Route::get('cambioEstadoPrestamos',[PrestamoController::class, 'cambioEstadoPrestamos'])->name('cambioEstadoPrestamos');
 
+    Route::resource('tipodocumentos', TipoDocumentoController::class);
 });
 
 Auth::routes();

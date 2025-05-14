@@ -21,14 +21,56 @@
                         <form action="{{ route('prestamos.store') }}" method="POST">
                             @csrf
                             <div class="card-body">
-                                <div class="row">
-                                    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
-                                        <div class="form-group label-floating">
-                                            <label class="control-label">Nombre <strong style="color:red;">(*)</strong></label>
-                                            <input type="text" class="form-control" name="nombre" placeholder="Por ejemplo, Visibilidad" autocomplete="off" value="{{ old('nombre') }}">
-                                        </div>
-                                    </div>
+                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Persona <strong style="color:red;">(*)</strong></label>
+                                    <select name="persona_id" class="form-control select2" required>
+                                        <option value="">Buscar persona...</option>
+                                        @foreach($personas as $persona)
+                                            <option value="{{ $persona->id }}" {{ old('persona_id') == $persona->id ? 'selected' : '' }}>
+                                                {{ $persona->id }} - {{ $persona->nombre }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
+                            </div>
+                            
+                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Material <strong style="color:red;">(*)</strong></label>
+                                    <input type="text" class="form-control" name="material" placeholder="Nombre del material" value="{{ old('material') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Fecha de Préstamo <strong style="color:red;">(*)</strong></label>
+                                    <input type="datetime-local" class="form-control" name="fecha_prestamo" value="{{ old('fecha_prestamo') }}">
+                                </div>
+                            </div>
+                            
+                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Fecha de Entrega</label> 
+                                    <input type="datetime-local" class="form-control" name="fecha_entrega" value="{{ old('fecha_entrega') }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Días de Retraso <strong style="color:red;">(*)</strong></label>
+                                    <input type="number" class="form-control" name="dias_retraso" placeholder="0" value="{{ old('dias_retraso') }}">
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                                <div class="form-group">
+                                    <label>Estado <strong style="color:red;">(*)</strong></label>
+                                    <select name="estado" class="form-control" required>
+                                        <option value="activo" {{ old('estado') == 'activo' ? 'selected' : '' }}>Activo</option>
+                                        <option value="devuelto" {{ old('estado') == 'devuelto' ? 'selected' : '' }}>Devuelto</option>
+                                        <option value="retrasado" {{ old('estado') == 'retrasado' ? 'selected' : '' }}>Retrasado</option>
+                                    </select>
+                                </div>
+                            </div>
 
                                 <input type="hidden" class="form-control" name="estado" value="1">
 								<input type="hidden" class="form-control" name="registradopor" value="{{ Auth::user()->id }}">

@@ -27,7 +27,6 @@ class PrestamoFactory extends Factory
             'fecha_prestamo' => $fechaPrestamo,
             'estado' => $this->faker->randomElement(['activo', 'devuelto', 'retrasado']),
             'persona_id' => Persona::factory(),
-            'material_id' => Material::factory(),
             'fecha_devolucion' => $this->faker->dateTimeBetween($fechaPrestamo, '+1 month'),
             'fecha_entrega' => $this->faker->boolean(70) ? $this->faker->dateTimeBetween($fechaPrestamo, '+2 weeks') : null,
             'dias_retraso' => $diasDeRetraso,

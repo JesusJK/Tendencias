@@ -15,7 +15,7 @@ class Prestamo extends Model
         'fecha_prestamo',
         'estado',
         'persona_id', 
-        'material_id', 
+        'material', 
         'fecha_devolucion',
         'fecha_entrega',
         'dias_retraso'
@@ -26,10 +26,7 @@ class Prestamo extends Model
     {
         return $this->belongsTo(Persona::class, 'persona_id');
     }
-    public function material()
-    {
-        return $this->belongsTo(Material::class, 'material_id');
-    }
+    
     public function multaPrestamos()
     {
         return $this->hasMany(MultaPrestamo::class, 'prestamo_id');

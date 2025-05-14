@@ -16,17 +16,15 @@ return new class extends Migration
             $table->Datetime('fecha_prestamo');
             $table->String('estado');
             $table->unsignedBigInteger('persona_id');
-            $table->unsignedBigInteger('material_id');
+            $table->String('material');
             $table->Datetime('fecha_devolucion');
-            $table->Datetime('fecha_entrega');
+            $table->dateTime('fecha_entrega')->nullable();
             $table->INTEGER('dias_retraso');
             $table->timestamps();
 
             $table->foreign('persona_id')
             ->references('id')->on('personas');
 
-            $table->foreign('material_id')
-            ->references('id')->on('materiales');
         });
     }
 

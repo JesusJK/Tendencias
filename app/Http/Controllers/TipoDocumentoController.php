@@ -4,85 +4,80 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TipoDocumento;
-use App\Models\Persona;
 
 class TipoDocumentoController extends Controller
 {
-    
+     /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        // Obtener todos los tipos de documento
-        $tiposDocumento = TipoDocumento::all();
-
-        return view('tipodocumentos.index', compact('tiposDocumento'));
+        //
+        $tipodocumentos = TipoDocumento::all();
+        return view('tipodocumentos.index', compact('tipodocumentos'));
     }
 
-   
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-        return view('tipodocumentos.create');
+         return view('tipodocumentos.create');
     }
 
-    
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|string|max:255|unique:tipo_documentos,nombre',
-            'abreviatura' => 'required|string|max:10|unique:tipo_documentos,abreviatura',
+            'nombre' => 'required|string|max:255',
+            'abreviatura' => 'required|string|max:10',
         ]);
-
-        $tipoDocumento = new TipoDocumento();
-        $tipoDocumento->nombre = $request->nombre;
-        $tipoDocumento->abreviatura = $request->abreviatura;
-        $tipoDocumento->save();
-
-        return redirect()->route('tipodocumentos.index')->with('success', 'Tipo de documento creado con exito');
-    }
-
-   
-    public function show($id)
-    {
-        $tipoDocumento = TipoDocumento::findOrFail($id);
-
-        return view('tipodocumentos.show', compact('tipoDocumento'));
-    }
-
-    public function edit($id)
-    {
-        $tipoDocumento = TipoDocumento::findOrFail($id);
-
-        return view('tipodocumentos.edit', compact('tipoDocumento'));
-    }
-
-    
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nombre' => 'required|string|max:255|unique:tipo_documentos,nombre,' . $id,
-            'abreviatura' => 'required|string|max:10|unique:tipo_documentos,abreviatura,' . $id,
+        TipoDocumento::create([
+            'nombre' => $request->nombre,
+            'abreviatura' => $request->abreviatura,
         ]);
-
-        $tipoDocumento = TipoDocumento::findOrFail($id);
-        $tipoDocumento->nombre = $request->nombre;
-        $tipoDocumento->abreviatura = $request->abreviatura;
-        $tipoDocumento->save();
-
-        return redirect()->route('tipodocumentos.index')->with('success', 'Tipo de documento actualizado con exito');
+        return redirect()->route('tipodocumentos.index')->with('success', 'Tipo de documento creado correctamente.');    
     }
 
-   
-    public function destroy($id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        $tipoDocumento = TipoDocumento::findOrFail($id);
+        //
+    }
 
-        // Verificar si hay personas asociadas
-        $personasAsociadas = Persona::where('tipo_documento_id', $id)->count();
-        if ($personasAsociadas > 0) {
-            return redirect()->route('tipodocumentos.index')->with('error', 'No se puede eliminar el tipo de documento porque tiene personas asociadas');
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $documento = TipoDocumento::find($id);
+
+        if (!$documento) {
+            return redirect()->route('tipodocumentos.index')->with('error', 'Tipo de documento no encontrado.');
         }
-
-        $tipoDocumento->delete();
-
-        return redirect()->route('tipodocumentos.index')->with('success', 'Tipo de documento eliminado con exito');
+    
+        $documento->delete();
+    
+        return redirect()->route('tipodocumentos.index')->with('success', 'Tipo de documento eliminado correctamente.');
     }
 }

@@ -20,6 +20,7 @@ class Persona extends Model
         'tipo_documento_id',
         'mantenimiento_id',
         'inventario_id',
+        'foto',
     ];
 
     

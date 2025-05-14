@@ -3,98 +3,101 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Persona;
 use App\Models\TipoDocumento;
-use App\Models\Prestamo;
+use App\Models\Persona;
+use Illuminate\Support\Facades\Storage;
 
 class PersonaController extends Controller
 {
-    
+     /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        
+       
         $personas = Persona::with('tipoDocumento')->get();
-
-        return view('personas.index', compact('personas'));
+        return view('personas.index', compact('personas')); 
     }
 
-    
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-        
-        $tiposDocumento = TipoDocumento::all();
-
-        return view('personas.create', compact('tiposDocumento'));
+        $tipos = TipoDocumento::all();
+        return view('personas.create', compact('tipos'));
     }
 
-    
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
+        
+
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'N_documento' => 'required|numeric|unique:personas,N_documento',
             'correo' => 'required|email|max:255|unique:personas,correo',
-            'telefono' => 'nullable|string|max:15',
-            'tipo_documento_id' => 'required|exists:tipo_documentos,id',
+            'telefono' => 'required|regex:/^[0-9]+$/|digits_between:7,15',
+            'n_documento' => 'required|regex:/^[0-9]+$/|min:5|max:20|unique:personas,n_documento',
+            'tipo_documento_id' => 'required|exists:tipo_documento,id',
+            'foto' => 'required|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
-
-        $persona = new Persona();
-        $persona->nombre = $request->nombre;
-        $persona->N_documento = $request->N_documento;
-        $persona->correo = $request->correo;
-        $persona->telefono = $request->telefono;
-        $persona->tipo_documento_id = $request->tipo_documento_id;
-        $persona->save();
-
+        if ($request->hasFile('foto')) {
+            $ruta = $request->file('foto')->store('fotos', 'public');
+        }
+        Persona::create([
+            'nombre' => $request->nombre,
+            'correo' => $request->correo,
+            'telefono' => $request->telefono,
+            'n_documento' => $request->n_documento,
+            'tipo_documento_id' => $request->tipo_documento_id,
+            'foto' => $ruta ?? null,
+        ]);
         return redirect()->route('personas.index')->with('success', 'Persona creada con exito');
     }
 
-    
-    public function show($id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
     {
-        $persona = Persona::with(['tipoDocumento', 'prestamos'])->findOrFail($id);
-
-        return view('personas.show', compact('persona'));
+        //
     }
 
-    
-    public function edit($id)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
-        $persona = Persona::findOrFail($id);
-        $tiposDocumento = TipoDocumento::all();
-
-        return view('personas.edit', compact('persona', 'tiposDocumento'));
+        //
     }
 
-    
-    public function update(Request $request, $id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
-        $request->validate([
-            'nombre' => 'required|string|max:255',
-            'N_documento' => 'required|numeric|unique:personas,N_documento,' . $id,
-            'correo' => 'required|email|max:255|unique:personas,correo,' . $id,
-            'telefono' => 'nullable|string|max:15',
-            'tipo_documento_id' => 'required|exists:tipo_documentos,id',
-        ]);
-
-        $persona = Persona::findOrFail($id);
-        $persona->nombre = $request->nombre;
-        $persona->N_documento = $request->N_documento;
-        $persona->correo = $request->correo;
-        $persona->telefono = $request->telefono;
-        $persona->tipo_documento_id = $request->tipo_documento_id;
-        $persona->save();
-
-        return redirect()->route('personas.index')->with('success', 'Persona actualizada con exito');
+        //
     }
 
-   
-    public function destroy($id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
     {
-        $persona = Persona::findOrFail($id);
+        $persona = Persona::find($id);
+
+        if (!$persona) {
+            return redirect()->route('personas.index')->with('error', 'Persona no encontrada.');
+        }
+    
+        if ($persona->foto) {
+            Storage::disk('public')->delete($persona->foto);
+        }
         $persona->delete();
-
-        return redirect()->route('personas.index')->with('success', 'Persona eliminada con exito');
+    
+        return redirect()->route('personas.index')->with('success', 'Persona eliminada correctamente');
+        
     }
 }
-
