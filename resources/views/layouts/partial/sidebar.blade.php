@@ -28,61 +28,33 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           
-          <li class="nav-item">
-            <a href="{{ route('autores.index') }}" class="nav-link">
-            <i class="nav-icon fas fa-user"></i>
+               <li class="nav-item">
+            <a href="pages/widgets.html" class="nav-link">
+            <i class="nav-icon fas fa-th"></i>
               <p>
-                Autores
+                Widgets
                 
               </p>
             </a>
           </li>
+
           <li class="nav-item">
-            <a href="{{ route('categorias.index') }}" class="nav-link">
-            <i class="nav-icon fas fa-tags"></i>
-              <p>
-                Categorias
-                
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('clasificaciones.index') }}" class="nav-link">
-            <i class="nav-icon fas fa-list-ol"></i>
-              <p>
-                Clasificaciones
-                
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('estantes.index') }}" class="nav-link">
-            <i class="nav-icon fas fa-boxes"></i>
-              <p>
-                Estantes
-                
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{ route('materiales.index') }}" class="nav-link">
-            <i class="nav-icon fas fa-book"></i>
-              <p>
-                Materiales
-                <i class="fas fa-angle-left right"></i>
-                
-              </p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route ('prestamos.index') }}" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Layout Options
-                <i class="fas fa-angle-left right"></i>
-               
+                Prestamos
               </p>
             </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route ('personas.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Personas
+              </p>
+            </a>
+          </li>
+          
         </ul>
                 
       </nav>

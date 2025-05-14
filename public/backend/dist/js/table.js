@@ -10,13 +10,13 @@ class CustomDataTable {
             lengthChange: true,
             autoWidth: false,
             language: {
-                sLengthMenu: "Mostrar _MENU_ entradas",
+                sLengthMenu: "Mostrar MENU entradas",
                 sEmptyTable: "No hay datos disponibles en la tabla",
-                sInfo: "Mostrando _START_ a _END_ de _TOTAL_ entradas",
+                sInfo: "Mostrando START a END de TOTAL entradas",
                 sInfoEmpty: "Mostrando 0 a 0 de 0 entradas",
                 sSearch: "Buscar:",
                 sZeroRecords: "No se encontraron registros coincidentes en la tabla",
-                sInfoFiltered: "(Filtrado de _MAX_ entradas totales)",
+                sInfoFiltered: "(Filtrado de MAX entradas totales)",
                 oPaginate: {
                     sFirst: "Primero",
                     sPrevious: "Anterior",

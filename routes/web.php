@@ -1,58 +1,38 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ClasificacionController; 
-use App\Http\Controllers\CategoriaController; 
-use App\Http\Controllers\MaterialController; 
-use App\Http\Controllers\EstanteController; 
-use App\Http\Controllers\AutorController; 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\PrestamoController;
+
 
 Route::get('/', function () {
     return view('welcome');
+  })->name('welcome');
+
+// Route::middleware(['auth'])->group(function () {
+//     Route::get('/dashboard', [HomeController::class, 'dashboard']);
+// });
+
+// Route::prefix('admin')->group(function () {
+//     Route::get('/', function () {
+//     return 'Panel de administración';
+//     });
+//     Route::get('/users', function () {
+//     return 'Lista de usuarios';
+//     });
+// }); 
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', [HomeController::class, 'dashboard']);
+    Route::get('/home', [App\Http\controllers\HomeController::class, 'index'])->name('home');
+
+    Route::resource('personas',PersonaController::class);
+    Route::resource('prestamos', PrestamoController::class);
+    Route::get('cambioEstadoPrestamos',[PrestamoController::class, 'cambioEstadoPrestamos'])->name('cambioEstadoPrestamos');
+
 });
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::middleware(['auth'])->group(function () { 
-
-  Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-  
-  Route::resource('clasificaciones', ClasificacionController::class);
-  Route::resource('categorias', CategoriaController::class);
-  Route::resource('materiales', MaterialController::class);
-  Route::resource('estantes', EstanteController::class);
-  Route::resource('autores', AutorController::class);
-});
-
-
-/**Route::get('/', function (){
-    return"Hola mundo";
-});**/
-
-/* Route::get('/about', function (){
-     return 'Acerca de nosotros';
- });*/
-
-/*Route::get('/user/{id}', function ($id){
-    return 'ID de usuario:'.$id;
-});*/
-
-/*Route::get('/user/{id}/{name}', function ($id , $name){
-    return 'ID de usuario:'.$id ." ".$name;
-});*/
-
-/*Route::get('/user/{id}', function ($id){
-    return 'ID de usuario:' .$id;
-})-> where('id', '[0-9]{3}');*/
-
-/*Route::prefix('admin')->group(function () {
-    Route::get('/', function () {
-    return 'Panel de administración';
-    });
-    Route::get('/users', function () {
-    return 'Lista de usuarios';
-    });
-    }); */
 

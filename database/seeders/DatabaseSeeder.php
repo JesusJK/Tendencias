@@ -2,22 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\Autor;
-use App\Models\Categoria;
-use App\Models\Clasificacion;
-use App\Models\Estante;
-use App\Models\MAterial;
-use App\Models\MaterialAutor;
+use App\Models\Prestamo; 
+use App\Models\Persona; 
+use App\Models\Multa;
+use App\Models\MultaPrestamo;
+use App\Models\TipoDocumento;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
+    
     public function run(): void
     {
+      $this->call([
+        PersonaSeeder::class,
+        TipoDocumentoSeeder::class,
+        PrestamoSeeder::class,
+        MultaSeeder::class,
+        MultaPrestamoSeeder::class,
+    ]);
         // User::factory(10)->create();
 
         /**User::factory()->create([
@@ -39,13 +43,14 @@ class DatabaseSeeder extends Seeder
             'bibliografia' =>'bibliografia prueba',
           ]);**/
          
-         // Categoria::factory(10)->create();
+        // Categoria::factory(10)->create();
          
         // Estante::factory(10)->create();
         
         // Material::factory(10)->create();
 
         // MaterialAutor::factory(10)->create();
+ 
         
     }
 }
